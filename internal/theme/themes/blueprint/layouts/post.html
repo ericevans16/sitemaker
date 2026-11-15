@@ -1,0 +1,53 @@
+{{define "content"}}
+<div class="container post-container">
+<div class="post-main">
+<article class="post">
+    <h1 class="post-title">{{.Title}}</h1>
+
+    {{template "c/post-meta" .}}
+
+    {{if .Cover}}<img class="post-cover" src="{{.Cover}}" alt="{{.Title}}" loading="lazy" decoding="async">{{end}}
+
+    <div class="post-body">
+        {{.Content}}
+    </div>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{.Title}}",
+        "datePublished": "{{.Date}}",
+        "dateModified": "{{if .UpdatedAt}}{{.UpdatedAt}}{{else}}{{.Date}}{{end}}",
+        "author": {
+            "@type": "Person",
+            "name": "{{if .Author}}{{.Author}}{{else if .Home.Owner}}{{.Home.Owner}}{{else}}ZiwenYe{{end}}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{.SiteName}}"
+        },
+        "mainEntityOfPage": "{{.CanonicalURL}}"
+    }
+    </script>
+
+    {{template "c/post-license" .}}
+
+    {{if or .Prev .Next}}
+    <nav class="post-pager wire-frame" aria-label="Adjacent articles">
+        {{if .Prev}}<a class="post-pager-cell" href="{{.Prev.URL}}"><span class="mono post-pager-label">&larr; Older</span><span class="post-pager-title">{{.Prev.Title}}</span></a>{{else}}<div class="post-pager-cell post-pager-cell--empty"><span class="mono post-pager-label">&larr; Older</span><span class="post-pager-title">/ first entry</span></div>{{end}}
+        {{if .Next}}<a class="post-pager-cell post-pager-cell--next" href="{{.Next.URL}}"><span class="mono post-pager-label">Newer &rarr;</span><span class="post-pager-title">{{.Next.Title}}</span></a>{{else}}<div class="post-pager-cell post-pager-cell--next post-pager-cell--empty"><span class="mono post-pager-label">Newer &rarr;</span><span class="post-pager-title">/ latest entry</span></div>{{end}}
+    </nav>
+    {{end}}
+
+    {{if .Related}}
+    <section class="post-related">
+        <div class="section-head"><span class="mono">Related articles</span></div>
+        {{template "c/post-list" (dict "posts" .Related)}}
+    </section>
+    {{end}}
+</article>
+</div>
+{{if .TOC}}{{template "c/post-toc" .}}{{end}}
+</div>
+{{end}}

@@ -1,0 +1,21 @@
+{{define "content"}}
+<div class="container">
+<div class="articles-header">
+    <h1>{{.Title}}</h1>
+    <span class="mono">{{len .Terms}} {{lower .Title}}</span>
+</div>
+{{if .Terms}}
+<div class="term-grid wire-frame">
+    {{range .Terms}}
+    <a class="term-card" href="{{.URL}}">
+        <span class="term-name">{{if eq $.Taxonomy.Name "tags"}}#{{end}}{{.Name}}</span>
+        <span class="mono term-count">{{.Count}} {{if eq .Count 1}}post{{else}}posts{{end}}</span>
+    </a>
+    {{end}}
+</div>
+{{template "c/figcap" (dict "no" "1" "label" (printf "%s index — sorted by post count" .Title) "right" "Click to filter")}}
+{{else}}
+<p class="articles-empty">No {{lower .Title}} yet.</p>
+{{end}}
+</div>
+{{end}}

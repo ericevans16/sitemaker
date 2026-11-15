@@ -1,0 +1,19 @@
+{{define "content"}}
+<div class="container">
+<div class="articles-header">
+    <h1>{{.Title}}</h1>
+    <span class="mono">{{len .Posts}} posts</span>
+</div>
+{{if .Posts}}
+{{/* The index is a .wire-frame ledger: a filled head band, then one
+     row per entry — title on the left, date hard right. Hover draws
+     the sheet's hatch plus a primary inset rule; the type itself
+     never changes color. */}}
+{{template "c/post-list" (dict "posts" .Posts)}}
+{{template "c/figcap" (dict "no" "1" "label" "Article index — newest first" "right" "Source: content/posts")}}
+{{template "c/pagination" .}}
+{{else}}
+<p class="articles-empty">No articles yet.</p>
+{{end}}
+</div>
+{{end}}

@@ -1,0 +1,13 @@
+{{define "c/post-meta"}}<div class="post-meta">
+        <div class="post-meta-row">
+            {{if .Author}}<span class="post-author">{{.Author}}</span>{{end}}
+            {{if .Date}}<span class="post-meta-item"><span class="post-meta-label">Published</span><time datetime="{{.Date}}">{{.Date}}</time></span>{{end}}
+            {{if .UpdatedAt}}<span class="post-meta-item"><span class="post-meta-label">Updated</span>{{.UpdatedAt}}</span>{{end}}
+            {{if .Location}}<span class="post-meta-item"><span class="post-meta-label">Location</span>{{.Location}}</span>{{end}}
+            {{if .CategoryTerm}}<span class="post-meta-item"><span class="post-meta-label">Category</span><a class="post-meta-link" href="{{.CategoryTerm.URL}}">{{.CategoryTerm.Name}}</a></span>{{else if .Category}}<span class="post-meta-item"><span class="post-meta-label">Category</span>{{.Category}}</span>{{end}}
+        </div>
+        <div class="post-meta-row post-meta-stats">
+            <span>{{.WordCount}} words / {{.ReadingMinutes}} min read</span>
+            {{if .TagTerms}}<span class="post-meta-tags">{{range .TagTerms}}<a class="tag-chip" href="{{.URL}}">#{{.Name}}</a>{{end}}</span>{{end}}
+        </div>
+    </div>{{end}}

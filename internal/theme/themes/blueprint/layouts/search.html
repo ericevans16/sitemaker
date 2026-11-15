@@ -1,0 +1,22 @@
+{{define "content"}}
+<div class="container">
+<div class="articles-header">
+    <h1>{{.Title}}</h1>
+    <span class="mono">{{.TotalCount}} indexed posts</span>
+</div>
+<site-search class="search-panel" data-index="{{.SearchIndex}}">
+    <div class="search-box wire-frame">
+        <input
+            class="search-input"
+            type="search"
+            placeholder="Search title, tags, category or content... (Press / to focus)"
+            aria-label="Search articles"
+            autocomplete="off"
+        />
+    </div>
+    <div class="search-status mono" aria-live="polite">Type a keyword to filter {{.TotalCount}} posts.</div>
+    <div class="search-results post-list wire-frame" hidden></div>
+</site-search>
+{{template "c/figcap" (dict "no" "1" "label" "Full-text client search — zero network round-trips after load" "right" "Source: /search-index.json")}}
+</div>
+{{end}}

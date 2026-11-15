@@ -1,0 +1,20 @@
+{{define "footer"}}
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-info">
+            <p class="footer-copy">{{.Year}} &copy; {{if .Home.Owner}}{{.Home.Owner}}{{else}}ZiwenYe{{end}}. All rights reserved.</p>
+            <p class="footer-deploy">Built with <a class="footer-brand-link" href="https://github.com/ericevans16/sitemaker" target="_blank" rel="noopener noreferrer">sitemaker</a> · Hosted on GitHub Pages</p>
+        </div>
+        <div class="footer-links">
+            <a class="footer-link" href="/feed.xml" target="_blank" rel="noopener noreferrer">
+                {{icon "rss" "footer-link-icon"}}
+                RSS
+            </a>
+            <a class="footer-link" href="/logs.html">
+                {{icon "scroll-text" "footer-link-icon"}}
+                Site log
+            </a>
+        </div>
+    </div>
+</footer>
+{{end}}

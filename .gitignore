@@ -1,0 +1,19 @@
+# Output
+public/
+
+# Binaries
+sitemaker
+sitemaker.exe
+rainhush
+rainhush.exe
+
+# Dependencies
+node_modules/
+npm-debug.log
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

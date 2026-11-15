@@ -1,0 +1,100 @@
+{{define "layout"}}
+<!doctype html>
+<html lang="{{if .Lang}}{{.Lang}}{{else}}zh-CN{{end}}">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="color-scheme" content="dark light" />
+        {{if .NoIndex}}<meta name="robots" content="noindex, nofollow" />{{end}}
+        <title>{{if and .Title (ne .Title .SiteName)}}{{.Title}} | {{.SiteName}}{{else}}{{.SiteName}} | {{if .Home.Owner}}{{.Home.Owner}}{{else}}ZiwenYe{{end}}的个人博客{{end}}</title>
+        {{if or .Description .Site.Description}}<meta name="description" content="{{if .Description}}{{.Description}}{{else}}{{.Site.Description}}{{end}}" />{{end}}
+        <meta name="keywords" content="Rainhush,个人博客,技术博客,Go,Agent开发,编程" />
+        <meta name="author" content="{{if .Home.Owner}}{{.Home.Owner}}{{else}}ZiwenYe{{end}}" />
+        {{if .CanonicalURL}}<link rel="canonical" href="{{.CanonicalURL}}" />{{else}}<link rel="canonical" href="{{if .Site.URL}}{{.Site.URL}}{{else}}/{{end}}" />{{end}}
+        <link rel="alternate" type="application/rss+xml" title="{{.SiteName}}" href="/feed.xml" />
+        {{if and .Lang .LangAlt}}<link rel="alternate" hreflang="{{.Lang}}" href="{{.CanonicalURL}}" /><link rel="alternate" hreflang="{{if eq .Lang "zh-CN"}}en{{else}}zh-CN{{end}}" href="{{.LangAlt}}" /><link rel="alternate" hreflang="x-default" href="{{if .Site.URL}}{{.Site.URL}}{{else}}/{{end}}" />{{end}}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="{{.SiteName}}" />
+        <meta property="og:title" content="{{if and .Title (ne .Title .SiteName)}}{{.Title}} | {{.SiteName}}{{else}}{{.SiteName}} | {{if .Home.Owner}}{{.Home.Owner}}{{else}}ZiwenYe{{end}}{{end}}" />
+        <meta property="og:description" content="{{if .Description}}{{.Description}}{{else if .Site.Description}}{{.Site.Description}}{{else}}个人技术与生活博客{{end}}" />
+        {{if .CanonicalURL}}<meta property="og:url" content="{{.CanonicalURL}}" />{{else}}<meta property="og:url" content="{{if .Site.URL}}{{.Site.URL}}{{else}}/{{end}}" />{{end}}
+        <meta property="og:locale" content="zh_CN" />
+        <meta property="og:image" content="{{if .Site.Favicon}}{{.Site.Favicon}}{{else}}/static/imgs/avatar.png{{end}}" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="{{if and .Title (ne .Title .SiteName)}}{{.Title}} | {{.SiteName}}{{else}}{{.SiteName}}{{end}}" />
+        <meta name="twitter:description" content="{{if .Description}}{{.Description}}{{else if .Site.Description}}{{.Site.Description}}{{else}}个人技术与生活博客{{end}}" />
+        <meta name="twitter:image" content="{{if .Site.Favicon}}{{.Site.Favicon}}{{else}}/static/imgs/avatar.png{{end}}" />
+        {{if .Site.Favicon}}<link rel="icon" href="{{.Site.Favicon}}" />{{end}}
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "{{.SiteName}}",
+            "alternateName": ["Rainhush"],
+            "url": "{{if .Site.URL}}{{.Site.URL}}{{else}}/{{end}}",
+            "description": "{{if .Site.Description}}{{.Site.Description}}{{end}}",
+            "author": {
+                "@type": "Person",
+                "name": "{{if .Home.Owner}}{{.Home.Owner}}{{else}}ZiwenYe{{end}}",
+                "url": "{{if .Site.URL}}{{.Site.URL}}{{else}}/{{end}}"
+            },
+            "inLanguage": ["zh-CN", "en"]
+        }
+        </script>
+        <link rel="stylesheet" href="{{.BundleCSS}}" />
+        <script>
+            function syncThemeButton(theme) {
+                var button = document.querySelector(".theme-toggle");
+                if (!button) return;
+                button.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+                button.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+            }
+            function syncRainButton() {
+                var button = document.querySelector(".rain-toggle");
+                if (!button) return;
+                var on = window.rainEnabled ? window.rainEnabled() : true;
+                button.setAttribute("aria-pressed", on ? "true" : "false");
+            }
+            (function () {
+                var theme = localStorage.getItem("theme") === "light" ? "light" : "dark";
+                document.documentElement.setAttribute("data-theme", theme);
+                document.addEventListener("DOMContentLoaded", function () { syncThemeButton(theme); syncRainButton(); });
+            })();
+            var themeLocked = false;
+            function toggleTheme() {
+                if (themeLocked) return;
+                themeLocked = true;
+                window.setTimeout(function () { themeLocked = false; }, 450);
+                var c = document.documentElement.getAttribute("data-theme");
+                var n = c === "dark" ? "light" : "dark";
+                function apply() {
+                    document.documentElement.setAttribute("data-theme", n);
+                    localStorage.setItem("theme", n);
+                    syncThemeButton(n);
+                    window.dispatchEvent(new Event("themechange"));
+                }
+                var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                var stv = document.startViewTransition;
+                if (stv && !reduced) {
+                    try {
+                        stv.call(document, apply);
+                        return;
+                    } catch (e) {}
+                }
+                var root = document.documentElement;
+                root.classList.add("theme-anim");
+                apply();
+                window.setTimeout(function () { root.classList.remove("theme-anim"); }, 400);
+            }
+        </script>
+        {{if .DeepJS}}<script src="{{.DeepJS}}" defer></script>{{end}}
+        <script src="{{.BundleJS}}" defer></script>
+    </head>
+    <body class="site-body">
+        <canvas id="rain-canvas"></canvas>
+        {{template "header" .}}
+        <main>{{template "content" .}}</main>
+        {{template "footer" .}}
+    </body>
+</html>
+{{end}}

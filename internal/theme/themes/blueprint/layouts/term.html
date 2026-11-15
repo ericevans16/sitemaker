@@ -1,0 +1,11 @@
+{{define "content"}}
+<div class="container">
+<div class="articles-header">
+    <h1>{{if eq .Taxonomy.Name "tags"}}#{{end}}{{.Term.Name}}</h1>
+    <span class="mono">{{len .Posts}} {{if eq (len .Posts) 1}}post{{else}}posts{{end}} · <a class="head-back" href="{{.Taxonomy.URL}}">All {{lower .Taxonomy.Title}}</a></span>
+</div>
+{{if .Term.Description}}<p class="term-desc">{{.Term.Description}}</p>{{end}}
+{{template "c/post-list" (dict "posts" .Posts)}}
+{{template "c/figcap" (dict "no" "1" "label" (printf "Filed under %s" .Term.Name) "right" "Newest first")}}
+</div>
+{{end}}

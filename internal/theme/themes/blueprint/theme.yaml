@@ -1,0 +1,26 @@
+name: blueprint
+description: Industrial blueprint & wireframe theme (light/dark, rain canvas, isometric hero)
+
+css:
+  - css/layout.css
+  - css/components/header.css
+  - css/components/chroma.css
+  - css/components/figure.css
+  - css/pages/index.css
+  - css/pages/post.css
+  - css/components/code.css
+  - css/pages/articles.css
+  - css/pages/friends.css
+  - css/components/heatmap.css
+  - css/pages/taxonomy.css
+
+js:
+  - js/lifecycle.js
+  - js/components/rain-code-copy.js
+  - js/components/rain-figure.js
+  - js/components/rain-toc.js
+  - js/components/site-search.js
+  - js/mermaid.js
+  - js/header.js
+  - js/rain.js
+  - js/navigation.js

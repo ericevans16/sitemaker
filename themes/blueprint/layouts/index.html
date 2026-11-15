@@ -1,0 +1,70 @@
+{{define "content"}}
+<div class="container">
+    <section class="home-hero">
+        <div class="home-hero-figure wire-grid-bg">
+            <i class="wire-mark wire-mark--tl" aria-hidden="true"></i>
+            <i class="wire-mark wire-mark--tr" aria-hidden="true"></i>
+            <i class="wire-mark wire-mark--bl" aria-hidden="true"></i>
+            <i class="wire-mark wire-mark--br" aria-hidden="true"></i>
+
+            <div class="home-hero-main">
+                <div class="home-hero-avatar-frame">
+                    <img
+                        class="home-hero-avatar"
+                        src="{{.Home.Avatar}}"
+                        alt="{{.Home.Owner}}"
+                        width="112"
+                        height="112"
+                        fetchpriority="high"
+                        decoding="sync"
+                    />
+                </div>
+
+                <div class="home-hero-id">
+                    <h1 class="home-hero-title">{{if .Home.Title}}{{.Home.Title}}{{else}}{{.SiteName}}{{end}}</h1>
+                    <p class="home-hero-byline">{{.Home.Owner}}</p>
+                </div>
+
+                <div class="home-hero-art">
+                    <span class="home-hero-note script" aria-hidden="true">
+                        <span>have a<br />great day!</span>
+                        <svg class="home-hero-arrow" viewBox="0 0 40 30" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 27C13 27.5 22 19 35 5.5" />
+                            <path d="M28.5 6.5L35 5.5L32.5 12.5" />
+                        </svg>
+                    </span>
+                    {{template "hero-iso" .}}
+                </div>
+            </div>
+
+            {{template "c/home-stats" (dict "articles" .TotalPosts "words" .TotalWords "tags" .TotalTags)}}
+        </div>
+
+        {{template "c/figcap" (dict "no" "1" "label" (printf "Overview — %s" .SiteName) "right" "Built with sitemaker")}}
+
+        <div class="wire-hatch" aria-hidden="true"></div>
+    </section>
+
+    {{if gt .TotalPosts 0}}
+    <section class="home-posts">
+        <div class="home-posts--cols">
+            {{range .CategoryColumns}}
+            {{template "c/home-posts-col" (dict "name" .Name "url" .URL "posts" .Posts)}}
+            {{end}}
+        </div>
+
+        {{template "c/figcap" (dict "no" "2" "label" "Recent posts — filed by category" "right" "Newest first")}}
+
+        <div class="home-readmore">
+            <a href="{{.Permalinks.Articles}}">All articles{{icon "arrow-right" "home-readmore-icon"}}</a>
+        </div>
+    </section>
+
+    <div class="wire-hatch" aria-hidden="true"></div>
+    {{else}}
+    <p>No posts yet — drop Markdown files into content/posts/ to get started.</p>
+    {{end}}
+
+    {{template "heatmap" .}}
+</div>
+{{end}}

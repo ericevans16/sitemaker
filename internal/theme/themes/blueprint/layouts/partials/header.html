@@ -1,0 +1,35 @@
+{{define "header"}}
+<header class="header">
+    <div class="header-inner">
+        <div class="header-brand">
+            <a href="/">{{if .Home.Title}}{{.Home.Title}}{{else}}{{.SiteName}}{{end}}</a>
+        </div>
+        <nav class="header-nav" id="site-nav" aria-label="Main navigation">
+            {{if .Menu}}
+            {{range .Menu}}<a href="{{.URL}}" class="{{if .Active}}active{{end}}">{{.Name}}</a>{{end}}
+            {{else}}
+            <a href="/index.html" class="{{index .Nav "Home"}}">Home</a>
+            <a href="/articles.html" class="{{index .Nav "Articles"}}">Articles</a>
+            <a href="/friends.html" class="{{index .Nav "Friends"}}">Friends</a>
+            <a href="/about.html" class="{{index .Nav "About"}}">About</a>
+            {{end}}
+        </nav>
+        <div class="header-nav-actions">
+            {{template "c/theme-toggle" .}}
+            {{template "c/rain-toggle" .}}
+        </div>
+        <button
+            class="header-menu-btn"
+            onclick="toggleMenu()"
+            aria-label="Open navigation"
+            aria-controls="site-nav"
+            aria-expanded="false"
+            type="button"
+        >
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+            <span class="menu-bar"></span>
+        </button>
+    </div>
+</header>
+{{end}}

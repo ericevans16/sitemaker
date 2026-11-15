@@ -1,0 +1,242 @@
+/* ============================================================
+   Taxonomy, Archives, Search & Post Navigation — Blueprint theme
+   ============================================================ */
+
+.home-posts-col-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-posts-col-link:hover {
+  color: var(--primary-color);
+}
+
+.head-back {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.head-back:hover {
+  color: var(--primary-color);
+}
+
+.term-desc {
+  margin: 0 0 var(--gap-3);
+  color: var(--text-muted);
+}
+
+/* --- Tags / Categories grid ------------------------------- */
+.term-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.term-card {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-2);
+  padding: var(--cell-y) var(--cell-x);
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 0.15s;
+}
+
+.term-name {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(--text-color);
+  overflow-wrap: anywhere;
+}
+
+.term-count {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.term-card:hover {
+  background-image: var(--hatch-pattern-strong);
+  box-shadow: inset var(--wire-w) 0 0 var(--primary-color);
+}
+
+.term-card:hover .term-name {
+  color: var(--primary-color);
+}
+
+/* --- Post meta links & tag chips -------------------------- */
+.post-meta-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.post-meta-link:hover {
+  color: var(--primary-color);
+}
+
+.post-meta-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-2);
+}
+
+.post-meta-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag-chip {
+  display: inline-block;
+  padding: 1px 7px;
+  border: var(--wire-w) solid var(--border-soft);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.tag-chip:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-image: var(--hatch-pattern);
+}
+
+/* --- Prev / Next pager & Related articles ----------------- */
+.post-pager {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: var(--gap-3);
+}
+
+.post-pager-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--cell-y) var(--cell-x);
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 0.15s;
+}
+
+.post-pager-cell--next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.post-pager-cell--empty {
+  opacity: 0.45;
+}
+
+.post-pager-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.post-pager-title {
+  font-size: 0.92em;
+  font-weight: 500;
+  color: var(--text-color);
+  overflow-wrap: anywhere;
+}
+
+a.post-pager-cell:hover {
+  background-image: var(--hatch-pattern-strong);
+  box-shadow: inset var(--wire-w) 0 0 var(--primary-color);
+}
+
+a.post-pager-cell:hover .post-pager-title {
+  color: var(--primary-color);
+}
+
+.post-related {
+  margin-top: var(--gap-3);
+}
+
+.section-head {
+  margin-bottom: var(--gap-1);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* --- Archives --------------------------------------------- */
+.archive-year + .archive-year {
+  margin-top: var(--gap-3);
+}
+
+.archive-year-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--gap-1);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.archive-year-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-color);
+}
+
+/* --- Search ----------------------------------------------- */
+.search-panel {
+  display: block;
+}
+
+.search-box {
+  margin-bottom: var(--gap-2);
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--cell-y) var(--cell-x);
+  border: none;
+  outline: none;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.search-input:focus {
+  background-image: var(--hatch-pattern);
+  box-shadow: inset var(--wire-w) 0 0 var(--primary-color);
+}
+
+.search-status {
+  margin-bottom: var(--gap-2);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.search-snippet {
+  grid-column: 1 / -1;
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .term-grid,
+  .post-pager {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

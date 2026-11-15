@@ -1,0 +1,22 @@
+{{define "content"}}
+<div class="container">
+<div class="articles-header">
+    <h1>{{.Title}}</h1>
+    <span class="mono">{{.TotalCount}} posts</span>
+</div>
+{{if .Years}}
+{{range $idx, $y := .Years}}
+<section class="archive-year">
+    <div class="archive-year-head">
+        <h2 class="mono archive-year-title">{{$y.Year}}</h2>
+        <span class="mono">{{len $y.Posts}} {{if eq (len $y.Posts) 1}}post{{else}}posts{{end}}</span>
+    </div>
+    {{template "c/post-list" (dict "posts" $y.Posts)}}
+</section>
+{{end}}
+{{template "c/figcap" (dict "no" "1" "label" "Chronological archive — grouped by year" "right" "Newest first")}}
+{{else}}
+<p class="articles-empty">No articles yet.</p>
+{{end}}
+</div>
+{{end}}

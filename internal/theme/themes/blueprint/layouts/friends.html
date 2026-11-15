@@ -1,0 +1,25 @@
+﻿{{define "content"}}
+<div class="container">
+<div class="friends-page">
+    <h1 class="friends-title">{{.Title}}</h1>
+    {{if .Friends}}
+    {{if .Note}}<div class="friends-note post-body">{{.Note}}</div>{{end}}
+    {{/* The wall is a .wire-frame: the container's background shows
+         through a 1px gap between the cards, so the hairlines come
+         from one place and no card draws a border of its own. Each
+         card is one <a> — the whole cell is the click target, so
+         there is no stretched-link trick and no colon left in the
+         markup: the nick and the host are parsed apart at build
+         time (see parseFriendLinks in internal/builder). */}}
+    <div class="friend-grid wire-frame">
+        {{range .Friends}}{{template "c/friend-card" .}}{{end}}
+    </div>
+    {{template "c/figcap" (dict "no" "1" "label" "Friend links — in listed order" "right" (printf "%d sites · click anywhere to visit" (len .Friends)))}}
+    {{else}}
+    <div class="post-body friends-body">
+        {{.Content}}
+    </div>
+    {{end}}
+</div>
+</div>
+{{end}}
